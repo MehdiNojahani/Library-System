@@ -1,5 +1,7 @@
+package People;
+
 public class Person {
-    //instance variable for id and full name Person
+    //instance variable for id and full name People.Person
     private int id;
     private String fullName;
 
@@ -19,8 +21,6 @@ public class Person {
     public void setId(int id) {
         if (id >= 0)
             this.id = id;
-        else
-            System.out.println("Error");
     }
 
     public String getFullName() {
@@ -30,7 +30,6 @@ public class Person {
     public void setFullName(String fullName) {
         if (!fullName.isEmpty())
             this.fullName = fullName;
-        System.out.println("Error name");
     }
 
 }

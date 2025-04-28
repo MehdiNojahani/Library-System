@@ -1,2 +1,4 @@
-package People;public class Member {
+package People;
+
+public class Member extends Person{
 }
