@@ -2,7 +2,7 @@ package People;
 
 import Books.Book;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class Member extends Person implements Borrowable {
@@ -26,7 +26,18 @@ public class Member extends Person implements Borrowable {
     @Override
     public void borrowBook(Book book) {
 
-        if (boo)
+        if(book == null) {
+            System.out.println("This book is not in library.");
+        }
+
+        assert book != null;
+        if (!book.areYouBookReleased()){
+            System.out.println("This book is borrowed.");
+        }
+
+        borrowedBooks.add(book);
+        book.releasedBook();
+        System.out.println("This book " + book.getTitle() + "success`s borrowed ");
     }
 
     @Override
