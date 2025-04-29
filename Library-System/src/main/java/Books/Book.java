@@ -17,13 +17,14 @@ public class Book {
         this.bookStatus = bookStatus;
     }
 
+
+    //getter and setter method
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
-        if (id >=2000 || id <= 4000)
-            this.id = id;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -48,5 +49,20 @@ public class Book {
 
     public void setBookStatus(BookStatus bookStatus) {
         this.bookStatus = bookStatus;
+    }
+
+    //this method boolean return book release or borrow with BookStatus Enum :
+    public boolean areYouBookReleased(){
+        return this.bookStatus == BookStatus.RELEASED;
+    }
+
+    //Borrowed status with BorrowedStatus Enum
+    public void borrowedBook(){
+        this.bookStatus = BookStatus.BORROWED;
+    }
+
+    //Released status with BorrowedStatus Enum
+    public void releasedBook(){
+        this.bookStatus = BookStatus.RELEASED;
     }
 }
