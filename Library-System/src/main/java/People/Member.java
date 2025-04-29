@@ -5,7 +5,7 @@ import Books.Book;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Member extends Person{
+public class Member extends Person implements Borrowable {
 
     //instance var
     private List<Book> borrowedBooks;
@@ -21,5 +21,16 @@ public class Member extends Person{
 
     public void setBorrowedBooks(List<Book> borrowedBooks) {
         this.borrowedBooks = borrowedBooks;
+    }
+
+    @Override
+    public void borrowBook(Book book) {
+
+        if (boo)
+    }
+
+    @Override
+    public boolean returnBook(int bookId) {
+        return false;
     }
 }
