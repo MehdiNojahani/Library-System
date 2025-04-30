@@ -3,6 +3,7 @@ package People;
 import Books.Book;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Member extends Person implements Borrowable {
@@ -12,7 +13,7 @@ public class Member extends Person implements Borrowable {
 
     public Member(int id, String fullName, List<Book> borrowedBooks) {
         super(id, fullName);
-        this.borrowedBooks = borrowedBooks;
+        this.borrowedBooks = new ArrayList<>();
     }
 
     public List<Book> getBorrowedBooks() {
@@ -23,6 +24,8 @@ public class Member extends Person implements Borrowable {
         this.borrowedBooks = borrowedBooks;
     }
 
+
+    //Borrowed method
     @Override
     public void borrowBook(Book book) {
 
@@ -36,12 +39,25 @@ public class Member extends Person implements Borrowable {
         }
 
         borrowedBooks.add(book);
-        book.releasedBook();
+        book.borrowedBook();
         System.out.println("This book " + book.getTitle() + "success`s borrowed ");
     }
 
+
+    //return book if book in library identify with id
     @Override
     public boolean returnBook(int bookId) {
+
+        for (Book book:borrowedBooks) {
+            if (book.getId() == bookId){
+                borrowedBooks.remove(book);
+                book.releasedBook();
+                System.out.println("This book " + book.getTitle() + " returned Library. ");
+                return true;
+            }
+        }
+
+        System.out.println("This book not available in library ");
         return false;
     }
 }
