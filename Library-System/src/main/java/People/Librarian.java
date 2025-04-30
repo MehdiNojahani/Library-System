@@ -35,7 +35,7 @@ public class Librarian extends Person {
 
     }
 
-    
+
     //add book method use in manageBook() method
     private void addBook(){
         System.out.println("Book Title : ");
@@ -49,7 +49,32 @@ public class Librarian extends Person {
         System.out.println(newBookTitle  + "added to book list");
     }
 
+    //Remove book method use in manageBook() method
+    private void removeBook(){
 
+        if (bookList.isEmpty()){
+            System.out.println("Book list is empty!!!");
+            return;
+        }
+
+        Book entityBook = null;
+
+        System.out.println("Please enter book id for remove as list : ");
+        int removeBookId= scanner.nextInt();
+
+        for (Book b:bookList) {
+
+            if (b.getId() == removeBookId) {
+                entityBook = b;
+            }
+        }
+
+        if (entityBook != null){
+            bookList.remove(entityBook);
+            System.out.println(entityBook.getTitle() + " book removed as list.");
+        }
+
+    }
 
     //Set book id automatically method use in manage book. for easy initial by system
     private int automaticIdSet(){
