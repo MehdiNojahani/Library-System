@@ -19,7 +19,7 @@ public class Librarian extends Person {
     }
 
 
-    //Manage books method (add - remove)
+    //Manage books method (add - remove - edit)
     public void manageBook(){
 
         System.out.println("Librarian please enter number for your action :");
@@ -37,7 +37,19 @@ public class Librarian extends Person {
             case 2 :
                 removeBook();
                 break;
+            case 3 :
+                editBook();
+                break;
+            case 4 :
+                System.out.println("Exit the manage book!");
+                break;
+            default:
+                System.out.println("The number entered is not in the list.");
         }
+
+    }
+
+    public void manageMember(){
 
     }
 
@@ -79,6 +91,49 @@ public class Librarian extends Person {
             bookList.remove(entityBook);
             System.out.println(entityBook.getTitle() + " book removed as list.");
         }
+
+    }
+
+
+    //Edit the book if the book in question is in the library's book list.
+    private void editBook() {
+
+        if (bookList.isEmpty()){
+            System.out.println("BookList is Empty!!!");
+            return;
+        }
+
+        Book editEntityBook= null;
+
+        System.out.println("Enter book id for edited current book : ");
+        int editBookId= scanner.nextInt();
+        scanner.nextLine();
+
+        for (Book b : bookList){
+
+            if (b.getId() == editBookId){
+                editEntityBook = b;
+                break;
+            }
+
+
+        }
+
+        if (editEntityBook != null){
+
+            System.out.println("Enter book title : ");
+            String editBookTitle = scanner.nextLine();
+            System.out.println("Enter book author : ");
+            String editBookAuthor= scanner.nextLine();
+
+            editEntityBook.setTitle(editBookTitle);
+            editEntityBook.setAuthor(editBookAuthor);
+
+            System.out.println("Books edited **successfully**");
+
+
+        }else
+            System.out.println("book by " + editBookId + " not found!!");
 
     }
 
