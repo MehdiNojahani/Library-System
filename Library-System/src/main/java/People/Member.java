@@ -24,7 +24,6 @@ public class Member extends Person implements Borrowable {
         this.borrowedBooks = borrowedBooks;
     }
 
-
     //Borrowed method
     @Override
     public void borrowBook(Book book) {
@@ -40,7 +39,7 @@ public class Member extends Person implements Borrowable {
 
         borrowedBooks.add(book);
         book.borrowedBook();
-        System.out.println("This book " + book.getTitle() + "success`s borrowed ");
+        System.out.println("This book " + book.getTitle() + " success`s borrowed ");
     }
 
 

@@ -67,4 +67,14 @@ public class Book {
     public void releasedBook(){
         this.bookStatus = BookStatus.RELEASED;
     }
+
+
+    @Override
+    public String toString() {
+        return    "Book Id : " + getId()
+                + "\n" + "Book Title : " + getTitle()
+                + "\n" + "Book Author : " + getAuthor()
+                + "\n" + "Book Status : " + getBookStatus()
+                + "\n\n";
+    }
 }
