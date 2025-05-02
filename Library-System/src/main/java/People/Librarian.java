@@ -9,8 +9,10 @@ import java.util.Scanner;
 
 public class Librarian extends Person {
 
+    //List of book instance variable(attribute)
     List<Book> bookList=new ArrayList<>();
 
+    //Scanner class object for input keyword
     Scanner scanner=new Scanner(System.in);
 
     //Constructor
@@ -22,30 +24,39 @@ public class Librarian extends Person {
     //Manage books method (add - remove - edit)
     public void manageBook(){
 
-        System.out.println("Librarian please enter number for your action :");
-        System.out.println("Add new Book : (1) ");
-        System.out.println("Delete book : (2) ");
-        System.out.println("Edit book : (3) ");
-        System.out.println("Exit manage book : (4) ");
+        while (true){
 
-        int number = scanner.nextInt();
+            System.out.println("Librarian please enter number for your action :");
+            System.out.println("Add new Book : (1) ");
+            System.out.println("Delete book : (2) ");
+            System.out.println("Edit book : (3) ");
+            System.out.println("Show book List : (4) ");
+            System.out.println("Exit manage book : (5) ");
 
-        switch (number) {
-            case 1 :
-                addBook();
-                break;
-            case 2 :
-                removeBook();
-                break;
-            case 3 :
-                editBook();
-                break;
-            case 4 :
-                System.out.println("Exit the manage book!");
-                break;
-            default:
-                System.out.println("The number entered is not in the list.");
+            int number = scanner.nextInt();
+
+            switch (number) {
+                case 1 :
+                    addBook();
+                    break;
+                case 2 :
+                    removeBook();
+                    break;
+                case 3 :
+                    editBook();
+                    break;
+                case 4 :
+                    bookList();
+                    break;
+                case 5 :
+                    System.out.println("Exit the manage book!");
+                    break;
+                default:
+                    System.out.println("The number entered is not in the list.");
+                    break;
+            }
         }
+
 
     }
 
@@ -53,6 +64,8 @@ public class Librarian extends Person {
 
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //add book method use in manageBook() method
     private void addBook(){
@@ -137,8 +150,24 @@ public class Librarian extends Person {
 
     }
 
+    //Show book list for Librarian
+    private void bookList(){
+
+        if (bookList.isEmpty()) {
+            System.out.println("Book list is empty");
+            return;
+        }
+
+        System.out.println("Book List :");
+        for (Book books:bookList) {
+            System.out.println(books);
+        }
+    }
+
     //Set book id automatically method use in manage book. for easy initial by system
     private int automaticIdSet(){
         return bookList.size()+1;
     }
+
+
 }
