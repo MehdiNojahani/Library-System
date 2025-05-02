@@ -13,6 +13,11 @@ public class Librarian extends Person {
 
     Scanner scanner=new Scanner(System.in);
 
+    //Constructor
+    public Librarian(int id, String fullName) {
+        super(id, fullName);
+    }
+
 
     //Manage books method (add - remove)
     public void manageBook(){
@@ -30,7 +35,8 @@ public class Librarian extends Person {
                 addBook();
                 break;
             case 2 :
-
+                removeBook();
+                break;
         }
 
     }
