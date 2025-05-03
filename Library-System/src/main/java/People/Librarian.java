@@ -5,6 +5,7 @@ import Books.BookStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Librarian extends Person {
@@ -311,4 +312,23 @@ public class Librarian extends Person {
     }
 
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj)
+            return true;
+        if (! (obj instanceof Librarian))
+            return false;
+        if (!super.equals(obj))
+            return false;
+
+        Librarian librarian= (Librarian) obj;
+        return Objects.equals(bookList, librarian.bookList) &&
+                Objects.equals(memberList, librarian.memberList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), bookList, memberList);
+    }
 }

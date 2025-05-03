@@ -52,26 +52,25 @@ public class Book {
     }
 
 
-
     //this method boolean return book release or borrow with BookStatus Enum :
-    public boolean areYouBookReleased(){
+    public boolean areYouBookReleased() {
         return this.bookStatus == BookStatus.RELEASED;
     }
 
     //Borrowed status with BorrowedStatus Enum
-    public void borrowedBook(){
+    public void borrowedBook() {
         this.bookStatus = BookStatus.BORROWED;
     }
 
     //Released status with BorrowedStatus Enum
-    public void releasedBook(){
+    public void releasedBook() {
         this.bookStatus = BookStatus.RELEASED;
     }
 
 
     @Override
     public String toString() {
-        return    "Book Id : " + getId()
+        return "Book Id : " + getId()
                 + "\n" + "Book Title : " + getTitle()
                 + "\n" + "Book Author : " + getAuthor()
                 + "\n" + "Book Status : " + getBookStatus()
