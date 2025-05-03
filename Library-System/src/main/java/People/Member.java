@@ -5,6 +5,7 @@ import Books.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Member extends Person implements Borrowable {
 
@@ -58,5 +59,33 @@ public class Member extends Person implements Borrowable {
 
         System.out.println("This book not available in library ");
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Person id : " + getId()
+                + " Person Full Name : " + getFullName()
+                + " Borrowed Book : " + getBorrowedBooks();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj)
+            return true;
+        if (! (obj instanceof Member))
+            return false;
+        if (!super.equals(obj))
+            return false;
+
+        Member member= (Member) obj;
+        return Objects.equals(borrowedBooks, member.borrowedBooks);
+    }
+
+    //Override equals() and hashCode() method for comparison two object in hash list set and map
+    // (needs override for test and comparison in PersonFactoryDesignClass class and PersonFactoryDesignClassTest class)
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), borrowedBooks);
     }
 }

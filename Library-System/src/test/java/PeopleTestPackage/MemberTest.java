@@ -13,19 +13,18 @@ import java.util.List;
 public class MemberTest extends PersonTest {
 
     @Test
-    public void borrowBookTestMethod(){
-
+    public void borrowBookTestMethod() {
 
 
         //Given
-        BookTest bookTest=new BookTest();
+        BookTest bookTest = new BookTest();
 
-        List<Book> memberBookList=new ArrayList<>();
+        List<Book> memberBookList = new ArrayList<>();
 
         memberBookList.add(bookTest.book1);
         memberBookList.add(bookTest.book2);
 
-        Member member1=new Member(1, "Mehdi Nazmi", memberBookList);
+        Member member1 = new Member(1, "Mehdi Nazmi", memberBookList);
 
         //When
 
