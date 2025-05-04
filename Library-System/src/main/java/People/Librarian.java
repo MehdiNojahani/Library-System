@@ -41,6 +41,7 @@ public class Librarian extends Person {
             System.out.println("Exit manage book : (5) ");
 
             int bookNumber = scanner.nextInt();
+            scanner.nextLine();
 
             switch (bookNumber) {
                 case 1:
@@ -80,6 +81,7 @@ public class Librarian extends Person {
             System.out.println("Exit manage Member : (5) ");
 
             int memberNumber = scanner.nextInt();
+            scanner.nextLine();
 
             switch (memberNumber) {
                 case 1:
@@ -111,12 +113,13 @@ public class Librarian extends Person {
 
     //add book method use in manageBook() method
     private void addBook() {
+        scanner.nextLine();
         System.out.println("Book Title : ");
         String newBookTitle = scanner.nextLine();
         System.out.println("Author Name : ");
         String newBookAuthorName = scanner.nextLine();
 
-        Book newBook = new Book(automaticIdSet(), newBookTitle, newBookAuthorName, BookStatus.RELEASED);
+        Book newBook = new Book(automaticBookIdSet(), newBookTitle, newBookAuthorName, BookStatus.RELEASED);
 
         bookList.add(newBook);
         System.out.println(newBookTitle + "added to book list");
@@ -217,7 +220,7 @@ public class Librarian extends Person {
         System.out.println("Enter new member full-name : ");
         String fullName = scanner.nextLine();
 
-        Member newMember = new Member(automaticIdSet(), fullName, borrowedBookList);
+        Member newMember = new Member(automaticMemberIdSet(), fullName, borrowedBookList);
 
         memberList.add(newMember);
         System.out.println("A new member with the " + newMember.getFullName()
@@ -275,21 +278,23 @@ public class Librarian extends Person {
 
         if (existingMember != null) {
 
-            memberList.add(existingMember);
+            System.out.println("Enter full name : ");
+            existingMember.setFullName(scanner.nextLine());
             System.out.println(editExistingMemberId + " is successfully editing");
-        }
+        } else
+            System.out.println(editExistingMemberId + " is noy found!!!");
     }
 
     //Show member list :
-    private void showMemberList(){
-        
-        if (memberList.isEmpty()){
+    private void showMemberList() {
+
+        if (memberList.isEmpty()) {
             System.out.println("Member list is empty!!!");
             return;
         }
 
         System.out.println("Member List : ");
-        for (Member m:memberList) {
+        for (Member m : memberList) {
             System.out.println(m.toString());
         }
     }
@@ -298,8 +303,8 @@ public class Librarian extends Person {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //Set book id automatically method use in manage book. for easy initial by system
-    private int automaticIdSet() {
+    //Set book id automatically method use in manage book. for easy initial by system.
+    private int automaticBookIdSet() {
 
         int idMax = 0;
         for (Book b : bookList) {
@@ -311,18 +316,33 @@ public class Librarian extends Person {
 
     }
 
+    //Set member id automatically method use in manage member. for easy initial by system.
+    private int automaticMemberIdSet() {
 
+        int idMax = 0;
+        for (Member m : memberList) {
+            if (idMax < m.getId())
+                idMax = m.getId();
+
+        }
+        return idMax + 1;
+
+    }
+
+
+    //Override equals() and hashCode() method for comparison two object in hash list set and map
+    // (needs override for test and comparison in PersonFactoryDesignClass class and PersonFactoryDesignClassTest class)
     @Override
     public boolean equals(Object obj) {
 
         if (this == obj)
             return true;
-        if (! (obj instanceof Librarian))
+        if (!(obj instanceof Librarian))
             return false;
         if (!super.equals(obj))
             return false;
 
-        Librarian librarian= (Librarian) obj;
+        Librarian librarian = (Librarian) obj;
         return Objects.equals(bookList, librarian.bookList) &&
                 Objects.equals(memberList, librarian.memberList);
     }

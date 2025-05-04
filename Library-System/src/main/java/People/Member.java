@@ -14,7 +14,7 @@ public class Member extends Person implements Borrowable {
 
     public Member(int id, String fullName, List<Book> borrowedBooks) {
         super(id, fullName);
-        this.borrowedBooks = new ArrayList<>();
+        this.borrowedBooks = borrowedBooks != null ? borrowedBooks : new ArrayList<>();
     }
 
     public List<Book> getBorrowedBooks() {
@@ -29,13 +29,15 @@ public class Member extends Person implements Borrowable {
     @Override
     public void borrowBook(Book book) {
 
-        if(book == null) {
+        if (book == null) {
             System.out.println("This book is not in library.");
+            return;
         }
 
         assert book != null;
-        if (!book.areYouBookReleased()){
+        if (!book.areYouBookReleased()) {
             System.out.println("This book is borrowed.");
+            return;
         }
 
         borrowedBooks.add(book);
@@ -48,8 +50,8 @@ public class Member extends Person implements Borrowable {
     @Override
     public boolean returnBook(int bookId) {
 
-        for (Book book:borrowedBooks) {
-            if (book.getId() == bookId){
+        for (Book book : borrowedBooks) {
+            if (book.getId() == bookId) {
                 borrowedBooks.remove(book);
                 book.releasedBook();
                 System.out.println("This book " + book.getTitle() + " returned Library. ");
@@ -68,22 +70,22 @@ public class Member extends Person implements Borrowable {
                 + " Borrowed Book : " + getBorrowedBooks();
     }
 
+    //Override equals() and hashCode() method for comparison two object in hash list set and map
+    // (needs override for test and comparison in PersonFactoryDesignClass class and PersonFactoryDesignClassTest class)
     @Override
     public boolean equals(Object obj) {
 
         if (this == obj)
             return true;
-        if (! (obj instanceof Member))
+        if (!(obj instanceof Member))
             return false;
         if (!super.equals(obj))
             return false;
 
-        Member member= (Member) obj;
+        Member member = (Member) obj;
         return Objects.equals(borrowedBooks, member.borrowedBooks);
     }
 
-    //Override equals() and hashCode() method for comparison two object in hash list set and map
-    // (needs override for test and comparison in PersonFactoryDesignClass class and PersonFactoryDesignClassTest class)
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), borrowedBooks);
