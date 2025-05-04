@@ -303,7 +303,7 @@ public class Librarian extends Person {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //Set book id automatically method use in manage book. for easy initial by system
+    //Set book id automatically method use in manage book. for easy initial by system.
     private int automaticBookIdSet() {
 
         int idMax = 0;
@@ -316,7 +316,7 @@ public class Librarian extends Person {
 
     }
 
-    //Set member id automatically method use in manage member. for easy initial by system
+    //Set member id automatically method use in manage member. for easy initial by system.
     private int automaticMemberIdSet() {
 
         int idMax = 0;
