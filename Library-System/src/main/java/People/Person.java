@@ -2,15 +2,26 @@ package People;
 
 import java.util.Objects;
 
-public class Person {
+public class Person<T> {
     //instance variable for id and full name People.Person
     private int id;
     private String fullName;
 
+    private T extraData;
+
+    public T getExtraData() {
+        return extraData;
+    }
+
+    public void setExtraData(T extraData) {
+        this.extraData = extraData;
+    }
+
     //Constructor
-    public Person(int id, String fullName) {
+    public Person(int id, String fullName, T extraData) {
         this.id = id;
         this.fullName = fullName;
+        this.extraData=extraData;
     }
 
     public int getId() {

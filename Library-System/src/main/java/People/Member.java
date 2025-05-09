@@ -7,22 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Member extends Person implements Borrowable {
+public class Member extends Person<List<Book>> implements Borrowable {
 
     //instance var
-    private List<Book> borrowedBooks;
-
     public Member(int id, String fullName, List<Book> borrowedBooks) {
-        super(id, fullName);
-        this.borrowedBooks = borrowedBooks != null ? borrowedBooks : new ArrayList<>();
+        super(id, fullName, borrowedBooks);
     }
 
     public List<Book> getBorrowedBooks() {
-        return borrowedBooks;
+        return getExtraData();
     }
 
     public void setBorrowedBooks(List<Book> borrowedBooks) {
-        this.borrowedBooks = borrowedBooks;
+        super.setExtraData(borrowedBooks != null ? new ArrayList<>(borrowedBooks) : new ArrayList<>());
     }
 
     //Borrowed method
@@ -34,13 +31,17 @@ public class Member extends Person implements Borrowable {
             return;
         }
 
-        assert book != null;
         if (!book.areYouBookReleased()) {
             System.out.println("This book is borrowed.");
             return;
         }
 
-        borrowedBooks.add(book);
+        if (getExtraData().contains(book)){
+            System.out.println("You borrowed this book by you past");
+            return;
+        }
+
+        getExtraData().add(book);
         book.borrowedBook();
         System.out.println("This book " + book.getTitle() + " success`s borrowed ");
     }
@@ -50,9 +51,9 @@ public class Member extends Person implements Borrowable {
     @Override
     public boolean returnBook(int bookId) {
 
-        for (Book book : borrowedBooks) {
+        for (Book book : getExtraData()) {
             if (book.getId() == bookId) {
-                borrowedBooks.remove(book);
+                getExtraData().remove(book);
                 book.releasedBook();
                 System.out.println("This book " + book.getTitle() + " returned Library. ");
                 return true;
@@ -83,11 +84,11 @@ public class Member extends Person implements Borrowable {
             return false;
 
         Member member = (Member) obj;
-        return Objects.equals(borrowedBooks, member.borrowedBooks);
+        return Objects.equals(getExtraData(), member.getExtraData());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), borrowedBooks);
+        return Objects.hash(super.hashCode(), getExtraData());
     }
 }

@@ -3,14 +3,13 @@ package PeopleTestPackage;
 import Books.Book;
 import BooksTestPackage.BookTest;
 import People.Member;
-import PeopleTestPackage.PersonTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberTest extends PersonTest {
+public class MemberTest {
 
     @Test
     public void borrowBookTestMethod() {
