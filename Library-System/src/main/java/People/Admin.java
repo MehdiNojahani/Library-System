@@ -5,15 +5,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Admin extends Person {
+public class Admin extends Person<List<Librarian>> {
 
-    List<Librarian> librarianList;
 
     Scanner scanner = new Scanner(System.in);
 
-    public Admin(int id, String fullName, List<Librarian> librarianList) {
-        super(id, fullName);
-        this.librarianList = new ArrayList<>();
+    public Admin(int id, String fullName, List<Librarian> librarian) {
+        super(id, fullName, librarian);
     }
 
 
@@ -28,6 +26,7 @@ public class Admin extends Person {
         System.out.println("Exit manage Librarian : (5) ");
 
         int actionNumber = scanner.nextInt();
+        scanner.nextLine();
         while (true) {
 
             switch (actionNumber) {
@@ -58,18 +57,19 @@ public class Admin extends Person {
     //Add librarian method :
     private void addLibrarian() {
 
+        scanner.nextLine();
         System.out.println("Enter librarian full name : ");
         String librarianFullName = scanner.nextLine();
 
-        Librarian librarian = new Librarian(automaticIdSet(), librarianFullName);
-        librarianList.add(librarian);
+        Librarian newLibrarianAdded = new Librarian(automaticIdSet(), librarianFullName, new LibraryData());
+        getExtraData().add(newLibrarianAdded);
         System.out.println("Librarian added is successfully.");
     }
 
     //Remove librarian method :
     private void removeLibrarian() {
 
-        if (librarianList.isEmpty()) {
+        if (getExtraData().isEmpty()) {
             System.out.println("Librarian list is empty!!!");
             return;
         }
@@ -79,7 +79,7 @@ public class Admin extends Person {
         scanner.nextLine();
 
         Librarian existingLibrarian = null;
-        for (Librarian l : librarianList) {
+        for (Librarian l : getExtraData()) {
 
             if (l.getId() == removeLibrarianId) {
                 existingLibrarian = l;
@@ -87,7 +87,7 @@ public class Admin extends Person {
         }
 
         if (existingLibrarian != null) {
-            librarianList.remove(existingLibrarian);
+            getExtraData().remove(existingLibrarian);
             System.out.println("Librarian removed is successfully.");
         }
     }
@@ -95,7 +95,7 @@ public class Admin extends Person {
     //edit librarian method :
     private void editLibrarian() {
 
-        if (librarianList.isEmpty()) {
+        if (getExtraData().isEmpty()) {
             System.out.println("Librarian list is empty!!!");
             return;
         }
@@ -106,9 +106,10 @@ public class Admin extends Person {
 
         Librarian existingLibrarian = null;
 
-        for (Librarian l : librarianList) {
+        for (Librarian l : getExtraData()) {
             if (l.getId() == editingLibrarianId) {
                 existingLibrarian = l;
+                break;
             }
         }
 
@@ -123,12 +124,13 @@ public class Admin extends Person {
     //Show librarian list:
     private void showLibrarianList() {
 
-        if (librarianList.isEmpty()) {
+        if (getExtraData().isEmpty()) {
             System.out.println("Librarian list is empty!!!");
+            return;
         }
 
         System.out.println("Librarian List :");
-        for (Librarian l : librarianList) {
+        for (Librarian l : getExtraData()) {
             System.out.println(l);
         }
     }
@@ -138,7 +140,7 @@ public class Admin extends Person {
     private int automaticIdSet() {
 
         int idMax = 0;
-        for (Librarian l : librarianList) {
+        for (Librarian l : getExtraData()) {
             if (idMax < l.getId())
                 idMax = l.getId();
 
@@ -158,13 +160,13 @@ public class Admin extends Person {
         if (!super.equals(obj))
             return false;
 
-        Admin admin=(Admin) obj;
+        Admin admin = (Admin) obj;
 
-        return Objects.equals(librarianList, admin.librarianList);
+        return Objects.equals(getExtraData(), admin.getExtraData());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), librarianList);
+        return Objects.hash(super.hashCode(), getExtraData());
     }
 }

@@ -8,23 +8,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Librarian extends Person {
-
-    //List of book instance variable(attribute)
-    List<Book> bookList = new ArrayList<>();
+public class Librarian extends Person<LibraryData> {
 
     //Scanner class object for input keyword
-    Scanner scanner = new Scanner(System.in);
-
+    private static final Scanner scanner = new Scanner(System.in);
     //Borrowed book lists member (member can-how create new then borrowed book)
     List<Book> borrowedBookList = new ArrayList<>();
 
-    //Member lists
-    List<Member> memberList = new ArrayList<>();
 
     //Constructor
-    public Librarian(int id, String fullName) {
-        super(id, fullName);
+    public Librarian(int id, String fullName, LibraryData data) {
+        super(id, fullName, data);
     }
 
 
@@ -39,6 +33,7 @@ public class Librarian extends Person {
             System.out.println("Edit book : (3) ");
             System.out.println("Show book List : (4) ");
             System.out.println("Exit manage book : (5) ");
+
 
             int bookNumber = scanner.nextInt();
             scanner.nextLine();
@@ -121,14 +116,14 @@ public class Librarian extends Person {
 
         Book newBook = new Book(automaticBookIdSet(), newBookTitle, newBookAuthorName, BookStatus.RELEASED);
 
-        bookList.add(newBook);
+        getExtraData().getBookList().add(newBook);
         System.out.println(newBookTitle + "added to book list");
     }
 
     //Remove book method use in manageBook() method
     private void removeBook() {
 
-        if (bookList.isEmpty()) {
+        if (getExtraData().getBookList().isEmpty()) {
             System.out.println("Book list is empty!!!");
             return;
         }
@@ -138,7 +133,7 @@ public class Librarian extends Person {
         System.out.println("Please enter book id for remove as list : ");
         int removeBookId = scanner.nextInt();
 
-        for (Book b : bookList) {
+        for (Book b : getExtraData().getBookList()) {
 
             if (b.getId() == removeBookId) {
                 existingBook = b;
@@ -146,7 +141,7 @@ public class Librarian extends Person {
         }
 
         if (existingBook != null) {
-            bookList.remove(existingBook);
+            getExtraData().getBookList().remove(existingBook);
             System.out.println(existingBook.getTitle() + " book removed as list.");
         }
 
@@ -156,7 +151,7 @@ public class Librarian extends Person {
     //Edit the book if the book in question is in the library's book list.
     private void editBook() {
 
-        if (bookList.isEmpty()) {
+        if (getExtraData().getBookList().isEmpty()) {
             System.out.println("BookList is Empty!!!");
             return;
         }
@@ -167,7 +162,7 @@ public class Librarian extends Person {
         int editBookId = scanner.nextInt();
         scanner.nextLine();
 
-        for (Book b : bookList) {
+        for (Book b : getExtraData().getBookList()) {
 
             if (b.getId() == editBookId) {
                 editExistingBook = b;
@@ -198,13 +193,13 @@ public class Librarian extends Person {
     //Show book list for Librarian
     private void showBookList() {
 
-        if (bookList.isEmpty()) {
+        if (getExtraData().getBookList().isEmpty()) {
             System.out.println("Book list is empty");
             return;
         }
 
         System.out.println("Book List :");
-        for (Book books : bookList) {
+        for (Book books : getExtraData().getBookList()) {
             System.out.println(books);
         }
     }
@@ -222,7 +217,7 @@ public class Librarian extends Person {
 
         Member newMember = new Member(automaticMemberIdSet(), fullName, borrowedBookList);
 
-        memberList.add(newMember);
+        getExtraData().getMemberList().add(newMember);
         System.out.println("A new member with the " + newMember.getFullName()
                 + " and " + newMember.getId() + " has been added");
 
@@ -231,7 +226,7 @@ public class Librarian extends Person {
     //Remove member in member list if existing in member list
     private void removeMember() {
 
-        if (memberList.isEmpty()) {
+        if (getExtraData().getMemberList().isEmpty()) {
             System.out.println("Member list is empty!!!");
             return;
         }
@@ -241,7 +236,7 @@ public class Librarian extends Person {
         scanner.nextLine();
 
         Member existingMember = null;
-        for (Member m : memberList) {
+        for (Member m : getExtraData().getMemberList()) {
             if (m.getId() == removeMemberId) {
                 existingMember = m;
             }
@@ -249,7 +244,7 @@ public class Librarian extends Person {
 
         if (existingMember != null) {
 
-            memberList.remove(existingMember);
+            getExtraData().getMemberList().remove(existingMember);
             System.out.println(removeMemberId + " be successfully to removed.");
 
         }
@@ -258,7 +253,7 @@ public class Librarian extends Person {
     //Edit member in member list
     private void editMember() {
 
-        if (memberList.isEmpty()) {
+        if (getExtraData().getMemberList().isEmpty()) {
             System.out.println("Member list is empty!!!");
             return;
         }
@@ -268,7 +263,7 @@ public class Librarian extends Person {
         scanner.nextLine();
 
         Member existingMember = null;
-        for (Member m : memberList) {
+        for (Member m : getExtraData().getMemberList()) {
 
             if (m.getId() == editExistingMemberId) {
                 existingMember = m;
@@ -288,13 +283,13 @@ public class Librarian extends Person {
     //Show member list :
     private void showMemberList() {
 
-        if (memberList.isEmpty()) {
+        if (getExtraData().getMemberList().isEmpty()) {
             System.out.println("Member list is empty!!!");
             return;
         }
 
         System.out.println("Member List : ");
-        for (Member m : memberList) {
+        for (Member m : getExtraData().getMemberList()) {
             System.out.println(m.toString());
         }
     }
@@ -307,7 +302,7 @@ public class Librarian extends Person {
     private int automaticBookIdSet() {
 
         int idMax = 0;
-        for (Book b : bookList) {
+        for (Book b : getExtraData().getBookList()) {
             if (idMax < b.getId())
                 idMax = b.getId();
 
@@ -320,7 +315,7 @@ public class Librarian extends Person {
     private int automaticMemberIdSet() {
 
         int idMax = 0;
-        for (Member m : memberList) {
+        for (Member m : getExtraData().getMemberList()) {
             if (idMax < m.getId())
                 idMax = m.getId();
 
@@ -343,12 +338,12 @@ public class Librarian extends Person {
             return false;
 
         Librarian librarian = (Librarian) obj;
-        return Objects.equals(bookList, librarian.bookList) &&
-                Objects.equals(memberList, librarian.memberList);
+        return Objects.equals(getExtraData().getBookList(), librarian.getExtraData().getBookList()) &&
+                Objects.equals(getExtraData().getMemberList(), librarian.getExtraData().getMemberList());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), bookList, memberList);
+        return Objects.hash(super.hashCode(), getExtraData().getBookList(), getExtraData().getMemberList());
     }
 }
